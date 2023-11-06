@@ -1,0 +1,16 @@
+export interface Student {
+    name: string,
+    lastName: string,
+    gender: string,
+    street: string,
+    neighborhood: string,
+    city: string,
+    zipCode: string,
+    number: string,
+    SchoolId: number,
+    age: string,
+    complement: string,
+    turn:string,
+    UserId: number,
+    price: string,
+}

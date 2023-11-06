@@ -1,0 +1,148 @@
+<mat-card class="container">
+      <mat-stepper  [linear]="true" #stepper>
+        <mat-step [stepControl]="studentForm">
+          <form [formGroup]="studentForm">
+            <ng-template matStepLabel>Dados do aluno</ng-template>
+            <mat-form-field appearance="fill">
+              <mat-label>Nome</mat-label>
+              <input matInput placeholder="Nome" formControlName="name" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Sobrenome</mat-label>
+              <input matInput placeholder="Sobrenome" formControlName="lastName" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Gênero</mat-label>
+              <mat-select formControlName="gender">
+                <mat-option value="M">Masculino</mat-option>
+                <mat-option value="F">Feminino</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- <mat-form-field appearance="fill">
+                <mat-label>Escola</mat-label>
+                <mat-select formControlName="SchoolId" required>
+                  <mat-option *ngFor="let item of schools" [value]="item.id">
+                    {{item.name}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field> -->
+            <mat-form-field appearance="fill">
+              <mat-label>Turno</mat-label>
+              <mat-select formControlName="turn">
+                <mat-option value="M">Manhã</mat-option>
+                <mat-option value="T">Tarde</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Idade</mat-label>
+              <input type="number" matInput placeholder="Idade" formControlName="age" required>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>CEP</mat-label>
+              <input mask="00000-000"  (blur)="getAdress(studentForm.value.zipCode)" required formControlName="zipCode" matInput #postalCode maxlength="9"  placeholder="Ex. 55555-555">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Rua</mat-label>
+              <input matInput placeholder="Rua" formControlName="street" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Bairro</mat-label>
+              <input matInput placeholder="Bairro" formControlName="neighborhood" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Cidade</mat-label>
+              <input matInput placeholder="Cidade" formControlName="city" required>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Número</mat-label>
+              <input type="number" required formControlName="number" matInput #postalCode maxlength="4"  placeholder="Número">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Complemento</mat-label>
+              <input matInput placeholder="Complemento" formControlName="complement">
+            </mat-form-field>
+            <!-- <mat-form-field appearance="fill">
+              <mat-label>Preço do aluno</mat-label>
+              <input type="number" matInput placeholder="Preço" formControlName="price">
+            </mat-form-field> -->
+        <mat-form-field appearance="fill">
+          <mat-label>CPF do Responsável</mat-label>
+          <input (blur)="getParentForDocumentNumber(studentForm.value.parentDocumentNumber)" mask="000-000-000-00" matInput formControlName="parentDocumentNumber" placeholder="CPF"
+                 required>
+        </mat-form-field>
+            <div>
+              <button (click)="createStudent()" style="background-color:#FFD54F;" mat-button matStepperNext>Seguinte</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="parentForm" label="Dados do responsável">
+          <form [formGroup]="parentForm">
+            <mat-form-field appearance="fill">
+              <mat-label>Nome do Responsável</mat-label>
+              <input matInput formControlName="name" placeholder="Primeiro nome"
+                     required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Sobrenome do Responsável</mat-label>
+              <input matInput formControlName="lastName" placeholder="Segundo nome"
+                     required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>CPF do Responsável</mat-label>
+              <input mask="000-000-000-00" matInput formControlName="documentNumber" placeholder="CPF"
+                     required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Telefone do responsável</mat-label>
+              <input mask="(00)00000-0000"  matInput formControlName="phone" placeholder="Telefone"
+                     required>
+            </mat-form-field>
+            <div>
+              <button style="background-color:#FFD54F;" mat-button matStepperPrevious>Voltar</button>
+              <button style="background-color:#FFD54F;" mat-button matStepperNext>Seguinte</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Confirmar dados</ng-template>
+          <mat-card class="studentData">
+
+            <h1 style="text-align:center ;">Por favor, confirme os dados abaixo antes de inserir</h1> 
+            <mat-card>
+
+              <mat-grid-list cols="2" rowHeight="2:2">
+                <mat-grid-tile>
+                  <mat-list role="list">
+                    <mat-list-item role="listitem">Nome do aluno: {{ studentForm.value.name }}</mat-list-item>
+                    <mat-list-item role="listitem">Sobrenome do aluno: {{ studentForm.value.lastName }}</mat-list-item>
+                    <mat-list-item role="listitem">Gênero: {{ studentForm.value.gender }}</mat-list-item>
+                    <mat-list-item role="listitem">Escola: {{ studentForm.value.studentSchool }}</mat-list-item>
+                    <mat-list-item role="listitem">Idade: {{ studentForm.value.age }}</mat-list-item>
+                    <mat-list-item role="listitem">CEP: {{ studentForm.value.zipCode }}</mat-list-item>
+                    <mat-list-item role="listitem">Rua: {{ studentForm.value.street }}</mat-list-item>
+                    <mat-list-item role="listitem">Bairro: {{ studentForm.value.studentneighborhoodt }}</mat-list-item>
+                    <mat-list-item role="listitem">Bairro: {{ studentForm.value.complement }}</mat-list-item>
+                  </mat-list>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                  <mat-list role="list">
+                    <mat-list-item role="listitem">Nome do Responsável: {{parentForm.value.parentName}}</mat-list-item>
+                    <mat-list-item role="listitem">Sobrenome do Responsável: {{parentForm.value.parentLastName}}</mat-list-item>
+                    <mat-list-item role="listitem">Telefone para contato do Responsável: {{parentForm.value.parentPhone}}</mat-list-item>
+                    <mat-list-item role="listitem"></mat-list-item>
+                    <mat-list-item role="listitem"></mat-list-item>
+                    <mat-list-item role="listitem"></mat-list-item>
+                  </mat-list>
+                </mat-grid-tile>
+              </mat-grid-list>
+              <div class="endButtons">
+                <button style="background-color:#FFD54F;" mat-button matStepperPrevious>Voltar</button>
+                <span class="example-spacer"></span>
+                <button  mat-mini-fab color="primary"> <mat-icon>done</mat-icon></button>
+              </div>
+            </mat-card>
+          </mat-card>
+          </mat-step>
+        </mat-stepper>
+        
+</mat-card>
