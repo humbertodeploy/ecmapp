@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoaderService } from 'src/app/services/loader.service';
 import { SchoolService } from 'src/app/services/school.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-addschools',
@@ -10,7 +12,7 @@ import { SchoolService } from 'src/app/services/school.service';
 })
 export class AddschoolsComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private schoolService: SchoolService, private loaderService: LoaderService) { }
+  constructor(private router: Router,private formBuilder: FormBuilder, private schoolService: SchoolService, private loaderService: LoaderService) { }
 
   ngOnInit(): void {
   }
@@ -24,9 +26,19 @@ export class AddschoolsComponent implements OnInit {
   })
     saveSchool(){
       this.loaderService.show();
-      console.log(this.schoolForm.value);
       this.schoolService.createSchool(this.schoolForm.value).subscribe((res)=>{
         this.loaderService.hide();
+        Swal.fire({
+          title: "Sucesso!",
+          icon: "success",
+          confirmButtonColor: '#FFD54F',
+        }).then((result)=>{
+          if(result.isConfirmed){
+            this.router.navigate(["schools"]).then(()=>{
+              window.location.reload()
+          });
+          }
+        })
         
       }
       )

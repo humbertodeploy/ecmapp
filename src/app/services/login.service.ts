@@ -9,16 +9,15 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "http://localhost:3333/api/login/auth";
+  private url = "http://127.0.0.1:3333/api/login";
 
   login(user: FormGroup): Observable<any>{
     return this.http.post<any>(this.url, user)
   }
 
   getLogins(): Observable<any>{
-    let headers = new Headers();
     let token = localStorage.getItem('token') || '';
-    headers.append('x-access-token', token);
+    console.warn(token)
     const httpOptions = {
       headers: new HttpHeaders({ 'x-access-token': token })
     };

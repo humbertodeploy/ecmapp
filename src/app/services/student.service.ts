@@ -10,23 +10,19 @@ export class StudentService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<any>{
-    // let headers = new Headers();
-    // let token = localStorage.getItem('token') || '';
-    // headers.append('x-access-token', token);
-    // const httpOptions = {
-    //   headers: new HttpHeaders({ 'x-access-token': token })
-    // };
-    return this.http.get<any>('https://localhost:7193/Aluno');
+    let token = localStorage.getItem('token') || '';
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Authorization': `Bearer ${token}` })
+    };
+    return this.http.get<any>('http://127.0.0.1:3333/api/alunos',httpOptions);
   }
 
   create(student: any): Observable<any>{
-    // let headers = new Headers();
-    // let token = localStorage.getItem('token') || '';
-    // headers.append('x-access-token', token);
-    // const httpOptions = {
-    //   headers: new HttpHeaders({ 'x-access-token': token })
-    // };
-    return this.http.post<any>('https://localhost:7193/Aluno', student);
+    let token = localStorage.getItem('token') || '';
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Authorization': `Bearer ${token}` })
+    };
+    return this.http.post<any>('http://127.0.0.1:3333/api/alunos', student, httpOptions);
   }
 
   getLatitudeLongitude(rua: any,numero: any,bairro: any,cidade: any):Observable<any>{

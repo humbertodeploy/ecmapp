@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { SchoolService } from 'src/app/services/school.service';
 
 @Component({
@@ -16,13 +17,17 @@ export class SchoolsComponent implements OnInit {
 
   schools: any[] = []
 
-  displayedColumns: string[] = ['name', 'cidade'];
-
+  displayedColumns: string[] = ['name', 'cidade', 'acao'];
+  dataSource: any;
 
   getSchools(){
     this.schoolService.getAll().subscribe(
       (res)=>{
-        this.schools = res;
+        for(let school of res){
+          this.schools.push(school)
+        }
+        this.dataSource = new MatTableDataSource(this.schools);
+        console.log(res[0])
       }
     )
   }

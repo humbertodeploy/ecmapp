@@ -8,19 +8,19 @@
   <button style="position: absolute; right: 5px;" mat-button [matMenuTriggerFor]="beforeMenu"><mat-icon class="menu" aria-hidden="false" aria-label="Example home icon" fontIcon="menu"></mat-icon></button>
 <mat-menu #beforeMenu="matMenu" xPosition="before">
   <button mat-menu-item>Roteiro</button>
-  <button mat-menu-item (click)="openComponent('students')">Alunos</button>
-  <button mat-menu-item (click)="openComponent('schools')">Escolas</button>
+  <button mat-menu-item routerLink="students">Alunos</button>
+  <button mat-menu-item routerLink="schools">Escolas</button>
   <button mat-menu-item (click)="logout()">Sair da conta</button>
 </mat-menu>
 
 </mat-toolbar>
 
-<div class="content">
+<!-- <div class="content">
   <app-students *ngIf="component==='students'"></app-students>
   <app-schools *ngIf="component==='schools'"></app-schools>
   <app-financial *ngIf="component==='financial'"></app-financial>
   <app-student-feedback *ngIf="component==='studentsfeedback'"></app-student-feedback>
-</div>
+</div> -->
 
 
 <!-- <div class="icon-bar">

@@ -18,24 +18,55 @@ constructor(private formBuilder: FormBuilder,private cepService: ConsultCepServi
   ngOnInit(): void {
     this.getSchools();
   }
+  selectedFile!: File; 
+
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+      this.studentForm.controls['imagem'].setValue(this.selectedFile);
+    }
+  }
+
+  submitAluno(){
+    const alunoData = new FormData();
+    alunoData.append('name', this.studentForm.controls['name'].value);
+    alunoData.append('last_name', this.studentForm.controls['last_name'].value);
+    alunoData.append('gender', this.studentForm.controls['gender'].value);
+    alunoData.append('street', this.studentForm.controls['street'].value);
+    alunoData.append('neighborhood', this.studentForm.controls['neighborhood'].value);
+    alunoData.append('city', this.studentForm.controls['city'].value);
+    alunoData.append('zip_code', this.studentForm.controls['zip_code'].value);
+    alunoData.append('number', this.studentForm.controls['number'].value);
+    alunoData.append('escolaId', this.studentForm.controls['escolaId'].value);
+    alunoData.append('age', this.studentForm.controls['age'].value);
+    alunoData.append('complement', this.studentForm.controls['complement'].value);
+    alunoData.append('turn', this.studentForm.controls['turn'].value);
+    alunoData.append('parent_document_number', this.studentForm.controls['parent_document_number'].value);
+    alunoData.append('latitude', this.studentForm.controls['latitude'].value);
+    alunoData.append('longitude', this.studentForm.controls['longitude'].value);
+    alunoData.append('image', this.selectedFile);
+    
+    return alunoData;
+  }
 
 
-  schools: any;
+  schools: Array<any> = [];
   studentForm: FormGroup = this.formBuilder.group({
+    image: [''],
     name: [''],
-    lastName: [''],
+    last_name: [''],
     gender: [''],
     street: [''],
     neighborhood: [''],
     city: [''],
-    zipCode: [''],
+    zip_code: [''],
     number: [''],
-    // SchoolId: [],
+    escolaId: [],
     age: [''],
     complement: [''],
     turn:[''],
     // UserId:[],
-    parentDocumentNumber:[''],
+    parent_document_number:[''],
     // price: [''],
     // date: ['']
     latitude: [''],
@@ -44,7 +75,7 @@ constructor(private formBuilder: FormBuilder,private cepService: ConsultCepServi
 
   public parentForm: FormGroup = this.formBuilder.group({
     name: [''],
-    lastName: [''],
+    last_name: [''],
     phone: [''],
     documentNumber: ['']
   })
@@ -78,7 +109,9 @@ constructor(private formBuilder: FormBuilder,private cepService: ConsultCepServi
   getSchools(){
     this.schoolService.getAll().subscribe(
       (res)=>{
-        this.schools = res;
+        for(let school of res){
+          this.schools.push(school)
+        }
       }
     )
   }
@@ -99,7 +132,7 @@ constructor(private formBuilder: FormBuilder,private cepService: ConsultCepServi
         let longitude = res.results[0].geometry.lng.toString();
         this.studentForm.controls['latitude'].setValue(latitude);
         this.studentForm.controls['longitude'].setValue(longitude);
-        this.studentService.create(this.studentForm.value).subscribe();
+        this.studentService.create(this.submitAluno()).subscribe();
       }
     )
   }

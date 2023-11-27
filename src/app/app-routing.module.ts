@@ -11,12 +11,10 @@ import { StudentsComponent } from './views/students/students.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  // { path: 'home', component: HomeComponent, canActivate: [PermissionJWTGuard] },
-  { path: 'home', component: HomeComponent },
-  { path: 'students', component: StudentsComponent },
-  { path: 'schools', component: SchoolsComponent },
-  { path: 'financial', component: FinancialComponent },
-  { path: 'studentsfeedback', component: StudentFeedbackComponent }
+  { path: 'students', component: StudentsComponent , canActivate: [PermissionJWTGuard] } ,
+  { path: 'schools', component: SchoolsComponent , canActivate: [PermissionJWTGuard]},
+  { path: 'financial', component: FinancialComponent , canActivate: [PermissionJWTGuard] },
+  { path: 'studentsfeedback', component: StudentFeedbackComponent , canActivate: [PermissionJWTGuard]}
 ];
 
 @NgModule({

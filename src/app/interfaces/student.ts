@@ -1,11 +1,11 @@
 export interface Student {
     name: string,
-    lastName: string,
+    last_name: string,
     gender: string,
     street: string,
     neighborhood: string,
     city: string,
-    zipCode: string,
+    zip_code: string,
     number: string,
     SchoolId: number,
     age: string,
@@ -13,4 +13,7 @@ export interface Student {
     turn:string,
     UserId: number,
     price: string,
+    image: string,
+    latitude: string,
+    longitude: string,
 }

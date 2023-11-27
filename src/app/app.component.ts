@@ -13,13 +13,12 @@ export class AppComponent implements OnInit{
   constructor(private router: Router){}
 
   ngOnInit(): void {
-    this.disableHeader();
   }
 
   disableHeader(){
     if(this.router.url == '/'){
-      return true
+      return false
     }
-    return false;
+    return true;
   }
 }

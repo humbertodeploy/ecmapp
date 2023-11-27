@@ -3,13 +3,15 @@
         <mat-step [stepControl]="studentForm">
           <form [formGroup]="studentForm">
             <ng-template matStepLabel>Dados do aluno</ng-template>
+              <mat-label>Imagem</mat-label>
+              <input type="file" (change)="onFileChange($event)" placeholder="Foto do aluno(a)" formControlName="image" required>
             <mat-form-field appearance="fill">
               <mat-label>Nome</mat-label>
               <input matInput placeholder="Nome" formControlName="name" required>
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label>Sobrenome</mat-label>
-              <input matInput placeholder="Sobrenome" formControlName="lastName" required>
+              <input matInput placeholder="Sobrenome" formControlName="last_name" required>
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label>Gênero</mat-label>
@@ -18,14 +20,14 @@
                 <mat-option value="F">Feminino</mat-option>
               </mat-select>
             </mat-form-field>
-            <!-- <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill">
                 <mat-label>Escola</mat-label>
-                <mat-select formControlName="SchoolId" required>
+                <mat-select formControlName="escolaId" required>
                   <mat-option *ngFor="let item of schools" [value]="item.id">
                     {{item.name}}
                   </mat-option>
                 </mat-select>
-            </mat-form-field> -->
+            </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label>Turno</mat-label>
               <mat-select formControlName="turn">
@@ -35,11 +37,11 @@
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label>Idade</mat-label>
-              <input type="number" matInput placeholder="Idade" formControlName="age" required>
+              <input  matInput placeholder="Idade" formControlName="age" required>
             </mat-form-field>
             <mat-form-field class="example-full-width" appearance="fill">
               <mat-label>CEP</mat-label>
-              <input mask="00000-000"  (blur)="getAdress(studentForm.value.zipCode)" required formControlName="zipCode" matInput #postalCode maxlength="9"  placeholder="Ex. 55555-555">
+              <input mask="00000-000"  (blur)="getAdress(studentForm.value.zip_code)" required formControlName="zip_code" matInput #postalCode maxlength="9"  placeholder="Ex. 55555-555">
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label>Rua</mat-label>
@@ -55,7 +57,7 @@
             </mat-form-field>
             <mat-form-field class="example-full-width" appearance="fill">
               <mat-label>Número</mat-label>
-              <input type="number" required formControlName="number" matInput #postalCode maxlength="4"  placeholder="Número">
+              <input required formControlName="number" matInput #postalCode maxlength="4"  placeholder="Número">
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label>Complemento</mat-label>
@@ -67,7 +69,7 @@
             </mat-form-field> -->
         <mat-form-field appearance="fill">
           <mat-label>CPF do Responsável</mat-label>
-          <input (blur)="getParentForDocumentNumber(studentForm.value.parentDocumentNumber)" mask="000-000-000-00" matInput formControlName="parentDocumentNumber" placeholder="CPF"
+          <input (blur)="getParentForDocumentNumber(studentForm.value.parent_document_number)" mask="000-000-000-00" matInput formControlName="parent_document_number" placeholder="CPF"
                  required>
         </mat-form-field>
             <div>
@@ -84,7 +86,7 @@
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label>Sobrenome do Responsável</mat-label>
-              <input matInput formControlName="lastName" placeholder="Segundo nome"
+              <input matInput formControlName="last_name" placeholder="Segundo nome"
                      required>
             </mat-form-field>
             <mat-form-field appearance="fill">
@@ -114,11 +116,11 @@
                 <mat-grid-tile>
                   <mat-list role="list">
                     <mat-list-item role="listitem">Nome do aluno: {{ studentForm.value.name }}</mat-list-item>
-                    <mat-list-item role="listitem">Sobrenome do aluno: {{ studentForm.value.lastName }}</mat-list-item>
+                    <mat-list-item role="listitem">Sobrenome do aluno: {{ studentForm.value.last_name }}</mat-list-item>
                     <mat-list-item role="listitem">Gênero: {{ studentForm.value.gender }}</mat-list-item>
                     <mat-list-item role="listitem">Escola: {{ studentForm.value.studentSchool }}</mat-list-item>
                     <mat-list-item role="listitem">Idade: {{ studentForm.value.age }}</mat-list-item>
-                    <mat-list-item role="listitem">CEP: {{ studentForm.value.zipCode }}</mat-list-item>
+                    <mat-list-item role="listitem">CEP: {{ studentForm.value.zip_code }}</mat-list-item>
                     <mat-list-item role="listitem">Rua: {{ studentForm.value.street }}</mat-list-item>
                     <mat-list-item role="listitem">Bairro: {{ studentForm.value.studentneighborhoodt }}</mat-list-item>
                     <mat-list-item role="listitem">Bairro: {{ studentForm.value.complement }}</mat-list-item>

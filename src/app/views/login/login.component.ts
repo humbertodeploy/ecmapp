@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   public userForm: FormGroup = this.formBuilder.group({
-    login: [''],
+    email: [''],
     password: ['']
   })
 
@@ -34,9 +34,10 @@ export class LoginComponent implements OnInit {
       this.progress = true;
       this.loginService.login(this.userForm.value).subscribe(
         (res) => {
-          if (res.auth) {
-            localStorage.setItem("token", res.token)
-            this.router.navigate(["home"]).then(()=>{
+          if (res.token ) {
+            localStorage.setItem("token", res.token.token)
+            localStorage.setItem("email", res.email)
+            this.router.navigate(["students"]).then(()=>{
               window.location.reload()
             })
           }else{
